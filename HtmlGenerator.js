@@ -1,4 +1,4 @@
-﻿(function () {
+(function() {
 
     function HtmlGenerator(options) {
 
@@ -30,30 +30,30 @@
         }
 
         var breakpoints = ">^+",
-    attributes = ".#@",
-    hierarchyCheck = 0,
-    attrMapper = {
-        '.': 'class',
-        '#': 'id',
-        '@': 'attribute'
-    },
-    elementArray,
-    breakpointArray,
-    finalElement = {},
-    classRegex = new RegExp('-?[_a-zA-Z]+[_a-zA-Z0-9-]*', 'i'),
-    idRegex = new RegExp('^[a-zA-Z]+[a-zA-Z0-9-_:.]*', 'i'),
-    attributeName = new RegExp('^[a-zA-Z][a-zA-Z0-9]+', 'i'),
-    dataRegex = new RegExp('\\[\\[[a-zA-Z].*\\]\\]', 'i'), //{{[a-zA-Z][a-zA-Z0-9]+\s*}}
-    // attributeValue = new RegExp('.*[' + breakpoints + ']$', 'i'),
-    subgroupPattern = /(?:\()([^\(\)]*)(?:\))(?:\*)(\d+)?/i,
-    currentElemIndex = 0,
-    heirarchyIndex = 0,
-    bpval = {
-        "+": 0,
-        ">": 1,
-        "^": -1
-    },
-    tempElem = 'div.temp-elem@style=display:none;';;
+            attributes = ".#@",
+            hierarchyCheck = 0,
+            attrMapper = {
+                '.': 'class',
+                '#': 'id',
+                '@': 'attribute'
+            },
+            elementArray,
+            breakpointArray,
+            finalElement = {},
+            classRegex = new RegExp('-?[_a-zA-Z]+[_a-zA-Z0-9-]*', 'i'),
+            idRegex = new RegExp('^[a-zA-Z]+[a-zA-Z0-9-_:.]*', 'i'),
+            attributeName = new RegExp('^[a-zA-Z][a-zA-Z0-9]+', 'i'),
+            dataRegex = new RegExp('\\[\\[[a-zA-Z].*\\]\\]', 'i'), //{{[a-zA-Z][a-zA-Z0-9]+\s*}}
+            // attributeValue = new RegExp('.*[' + breakpoints + ']$', 'i'),
+            subgroupPattern = /(?:\()([^\(\)]*)(?:\))(?:\*)(\d+)?/i,
+            currentElemIndex = 0,
+            heirarchyIndex = 0,
+            bpval = {
+                "+": 0,
+                ">": 1,
+                "^": -1
+            },
+            tempElem = 'div.temp-elem@style=display:none;';;
         this.tempElem = tempElem;
 
         pattern = flattenPattern(pattern);
@@ -62,13 +62,13 @@
 
 
         var domPattern = "",
-          dom = "";
+            dom = "";
 
         this.ep = HtmlGenerator.prototype;
 
         domPattern = (defaultOpts.parentId || '') + ".parent-emmetter" + (!pattern ? "" : ">" + pattern);
 
-        this.editPattern = function (pattern) {
+        this.editPattern = function(pattern) {
             if (pattern.indexOf("^^^^^") !== -1) {
                 debugger;
                 console.log(pattern);
@@ -76,11 +76,11 @@
             domPattern = domPattern + (pattern || "");
         };
 
-        this.clearPattern = function (pattern) {
+        this.clearPattern = function(pattern) {
             domPattern = "";
         };
 
-        this.toString = function () {
+        this.toString = function() {
             return domPattern;
         };
 
@@ -104,7 +104,7 @@
         }
 
 
-        this.addBreakpoints = function (breakpoint) {
+        this.addBreakpoints = function(breakpoint) {
 
             if (typeof breakpoint !== 'string')
                 return;
@@ -113,7 +113,7 @@
 
         };
 
-        this.removeBreakpoint = function (breakpoint) {
+        this.removeBreakpoint = function(breakpoint) {
 
             if (typeof breakpoint !== 'string')
                 return;
@@ -136,11 +136,11 @@
         function flattenHierarchy() {
 
             var joined = [],
-              flattenedDom = {};
+                flattenedDom = {};
 
             function join() {
 
-                elementArray.forEach(function (x, i) {
+                elementArray.forEach(function(x, i) {
                     joined.push(x);
 
                     if (breakpointArray[i])
@@ -153,7 +153,7 @@
             join();
 
             var level = 0;
-            joined.forEach(function (x, i) {
+            joined.forEach(function(x, i) {
 
 
                 if (i % 2 === 0) {
@@ -166,7 +166,7 @@
                         level = level + 1;
                     } else if (/^\^+$/.test(x)) {
 
-                        x.split('').forEach(function (x) {
+                        x.split('').forEach(function(x) {
                             level = level - 1;
 
                             if (level < 1)
@@ -188,7 +188,7 @@
             if (!isArray(arr))
                 throw Error('Invalid array');
 
-            arr.forEach(function (x, idx) {
+            arr.forEach(function(x, idx) {
 
 
                 if (x.length > 1) {
@@ -240,11 +240,11 @@
             this.child = undefined;
             this.level = undefined;
 
-            this.addChildElement = function (element) {
+            this.addChildElement = function(element) {
                 this.child = element;
             };
 
-            this.addSibling = function (element) {
+            this.addSibling = function(element) {
                 this.rightSibling = element;
             };
         }
@@ -254,15 +254,15 @@
         function generateElement(strPattern) {
 
             var element = {
-                class: [],
-                id: '',
-                otherAttrs: {},
-                elementType: 'div',
-                level: -1,
-                childElement: undefined,
-                rightSibling: undefined
-            },
-              closingTag = "";
+                    class: [],
+                    id: '',
+                    otherAttrs: {},
+                    elementType: 'div',
+                    level: -1,
+                    childElement: undefined,
+                    rightSibling: undefined
+                },
+                closingTag = "";
 
 
             // console.log(elementStack.length);
@@ -327,7 +327,7 @@
                     var attr = elemDetails[i + 1];
 
                     var an = attr.match(/^[a-zA-Z0-9-_\.]+/i),
-                      av;
+                        av;
 
 
                     try {
@@ -372,7 +372,7 @@
                     element.level = heirarchyIndex;
                     var thr = hr.split('');
                     var tempelement;
-                    thr.forEach(function (x) {
+                    thr.forEach(function(x) {
                         updateHierarchyIndex(-1);
                         tempelement = elementStack.pop();
                     });
@@ -405,6 +405,8 @@
             return pattern.split(reg);
 
         }
+
+
 
         function generateDomElement(strPattern) {
 
@@ -494,7 +496,7 @@
                         if (!isValidAttributeValue(av))
                             throw new Error('invalid attribute value');
 
-                    //element.otherAttrs[an] = av;
+                        //element.otherAttrs[an] = av;
                     element.setAttribute(an, av);
 
                 }
@@ -545,17 +547,28 @@
 
                     element.level = heirarchyIndex;
                     var thr = hr.split('');
-                    var tempelement;
-                    thr.forEach(function (x) {
+                    var tempelement, childElemArray = [];
+
+                    thr.forEach(function(x) {
                         updateHierarchyIndex(-1);
                         tempelement = elementStack.pop();
+                        //         childElemArray.push(tempelement);
                     });
+
+                    // for(var i = childElemArray.length - 1 ; i >0 ; i-- ){
+                    //     childElemArray[i-1].insertBefore(childElemArray[i],null);
+
+                    // }
+
 
                     refElem = elementStack[elementStack.length - 1];
 
+                    //refElem.insertBefore(childElemArray[0],null);
+
+
+
                     lastNode = refElem.hasChildNodes() ? refElem.childNodes[refElem.childNodes.length - 1] : null;
                     refElem.insertBefore(generateDomElement(elementArray[currentElemIndex]), lastNode);
-
 
                 }
 
@@ -625,7 +638,7 @@
             hierarchy.pop();
             hierarchy.shift();
 
-            hierarchy.forEach(function (x) {
+            hierarchy.forEach(function(x) {
                 currentLevel = currentLevel + (bpval[x] || 0);
             });
 
@@ -640,7 +653,7 @@
 
             for (var i = 0; i < element.count; i++) {
                 console.log(element.level);
-                pattern = pattern + (i > 0 ? '+' : '') +  element.element + (element.level > 0 ? HtmlGenerator.multiply('^', element.level).join('') + tempElem : '');
+                pattern = pattern + (i > 0 ? '+' : '') + element.element + (element.level > 0 ? HtmlGenerator.multiply('^', element.level).join('') + tempElem : '');
 
             }
 
@@ -656,7 +669,8 @@
             if (!pattern)
                 throw new Error('Invalid pattern passed');
 
-            var patternCopy = pattern, count = 1;
+            var patternCopy = pattern,
+                count = 1;
 
             var matches = subgroupPattern.exec(patternCopy);
 
@@ -682,7 +696,7 @@
                     patternStack.push({
                         placeholderId: count,
                         element: patternCopy,
-                        expandedElement:patternCopy,
+                        expandedElement: patternCopy,
                         count: 0
                     });
                 }
@@ -693,7 +707,7 @@
 
 
             for (var i = 1; i < patternStack.length; i++) {
-          
+
                 var r = new RegExp('::' + i + '::', 'gi'),
                     currentElem = patternStack[i]['expandedElement'],
                     prevElement = patternStack[i - 1]['expandedElement'];
@@ -748,7 +762,7 @@
             //breakpointArray = hierarchies;
 
 
-            elementArray.forEach(function (elem, idx) {
+            elementArray.forEach(function(elem, idx) {
 
                 var resultElms = expandPatternforMultiples(elem);
 
@@ -773,7 +787,7 @@
             console.log(breakpointArray);
         }
 
-        this.getLevel = function () {
+        this.getLevel = function() {
 
             var currentLevel = 0;
 
@@ -781,7 +795,7 @@
                 readjustElementPattern();
             }
 
-            breakpointArray.forEach(function (x) {
+            breakpointArray.forEach(function(x) {
                 if (x.length > 1) {
                     x.split('').forEach(function(y) {
                         currentLevel = currentLevel + (bpval[y] || 0);
@@ -796,7 +810,7 @@
 
         }
 
-        this.getPattern = function () {
+        this.getPattern = function() {
 
             var result = [];
 
@@ -818,7 +832,55 @@
 
         };
 
-        this.generateDom = function () {
+
+        function reOrderElements(elem) {
+
+            for (var i = elem.childNodes.length - 1; i >= 0; i--) {
+
+                if (elem.childNodes.length > 2)
+                    elem.insertBefore(elem.childNodes[i], elem.childNodes[0]); //elem.childNodes[0]
+
+                reOrderElements(elem.childNodes[i]);
+
+
+            }
+
+            return elem;
+
+
+
+        }
+
+        function reverseEls(elem) {
+
+            for (var i = 0; i < elem.childNodes.length; i++) {
+                elem.insertBefore(elem.childNodes[i], elem.firstChild);
+            }
+
+
+        }
+
+        function reverseChildNodes(node) {
+            var parentNode = node.parentNode,
+                nextSibling = node.nextSibling,
+                frag = node.ownerDocument.createDocumentFragment();
+            parentNode.removeChild(node);
+
+            while (node.lastChild)
+                frag.appendChild(node.lastChild);
+            node.appendChild(frag);
+            parentNode.insertBefore(node, nextSibling);
+            return node;
+        }
+
+        this.dom = function() {
+            var elem = this.generateDom();
+            var result = reOrderElements(elem);
+            return result;
+
+        }
+
+        this.generateDom = function() {
 
             //flattenHierarchy();
             readjustElementPattern(); //readjusts for multiples
@@ -836,7 +898,7 @@
         };
     }
 
-    HtmlGenerator.prototype.addExternalEmmetter = function (emmetter) {
+    HtmlGenerator.prototype.addExternalEmmetter = function(emmetter) {
 
         var resultEmmetter = emmetter;
         //level = emmetter.getLevel(),
@@ -847,7 +909,7 @@
         if (emmetter instanceof HtmlGenerator) {
             debugger;
             level = emmetter.getLevel(),
-            pat = level > 0 ? HtmlGenerator.multiply('^', level).join('') + this.tempElem : '';
+                pat = level > 0 ? HtmlGenerator.multiply('^', level).join('') + this.tempElem : '';
             console.log(level);
             resultEmmetter = emmetter.toString() + pat;
         }
@@ -859,7 +921,7 @@
 
     }
 
-    HtmlGenerator.prototype.addChild = function (pattern) {
+    HtmlGenerator.prototype.addChild = function(pattern) {
 
         if (!pattern)
             throw new Error("pattern not defined");
@@ -872,7 +934,7 @@
 
     };
 
-    HtmlGenerator.prototype.addSibling = function (pattern) {
+    HtmlGenerator.prototype.addSibling = function(pattern) {
 
         if (!pattern)
             throw new Error("pattern not defined");
@@ -884,7 +946,7 @@
         return this;
     };
 
-    HtmlGenerator.prototype.addContent = function (data) {
+    HtmlGenerator.prototype.addContent = function(data) {
 
         if (!data)
             throw new Error("data is not defined");
@@ -894,7 +956,7 @@
         return this;
     };
 
-    HtmlGenerator.prototype.moveUp = function (level) {
+    HtmlGenerator.prototype.moveUp = function(level) {
 
         var that = this;
 
@@ -929,7 +991,7 @@
 
     };
 
-    HtmlGenerator.prototype.addtoNthElement = function (elmNo, pattern) {
+    HtmlGenerator.prototype.addtoNthElement = function(elmNo, pattern) {
 
         if (!elmNo)
             throw new Error("please provide child element number ");
@@ -939,13 +1001,13 @@
         return this;
     };
 
-    HtmlGenerator.prototype.addProtos = function () {
+    HtmlGenerator.prototype.addProtos = function() {
 
         var args = Array.prototype.slice.call(arguments);
 
         var that = this;
 
-        args.forEach(function (x, idx) {
+        args.forEach(function(x, idx) {
 
             if (!x)
                 return;
@@ -965,22 +1027,22 @@
 
     };
 
-    HtmlGenerator.prototype.add = function () {
+    HtmlGenerator.prototype.add = function() {
 
         var that = this;
 
         return {
-            sibling: function () {
+            sibling: function() {
                 return HtmlGenerator.prototype.addSibling.apply(that, arguments);
             },
-            child: function () {
+            child: function() {
                 return HtmlGenerator.prototype.addChild.apply(that, arguments);
             },
-            byMovingUp: function () {
+            byMovingUp: function() {
                 return HtmlGenerator.prototype.moveUp.apply(that, arguments);
 
             },
-            content: function (data) {
+            content: function(data) {
                 that.editPattern("{{" + data + "}");
                 return that;
             }
@@ -990,12 +1052,12 @@
         };
     };
 
-    var htmlgen = function () {
+    var htmlgen = function() {
 
-        
+
         var args = Array.prototype.slice.call(arguments);
 
-        var F = function () { };
+        var F = function() {};
         F.prototype = HtmlGenerator.prototype;
 
         var f = new F();
@@ -1011,5 +1073,3 @@
 
 
 }());
-
-
